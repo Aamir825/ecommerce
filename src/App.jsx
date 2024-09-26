@@ -20,7 +20,7 @@ function App() {
           element: <Shop/>
         },
         {
-          path: "details",
+          path: "details/:detailID",
           element: <ProductDetails/>
         },
         {
