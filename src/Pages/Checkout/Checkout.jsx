@@ -4,6 +4,8 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 const Checkout = () => {
+  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+  const total = JSON.parse(localStorage.getItem("totalAmount")) || 0;
   return (
     <>
       <Box component="div" sx={{ mt: 6 }}>
@@ -131,44 +133,30 @@ const Checkout = () => {
             <Grid item md={5} xs={12} >
               <Typography sx={{ mb: 1 }}>Order Summary</Typography>
               <Box sx={{ height: 700, bgcolor: 'white', borderRadius: 3, padding: "8px 20px", position: 'relative' }}>
+                {cartItems.map((elem,index)=>{ 
+                  return(
                 <Card sx={{ width: "100%", boxShadow: 0, display: 'flex', gap: 4, alignItems: 'center', borderRadius: 14, padding: "2px", mb: 1 }}>
                   <CardMedia
                     sx={{ height: 60, width: 80, borderRadius: 14, objectFit: 'cover' }}
-                    image="https://cdn.pixabay.com/photo/2024/01/20/01/54/ai-generated-8520248_1280.jpg"
+                    image={elem.imageUrl}
                     title="green iguana"
                   />
                   <CardContent sx={{ padding: 0, mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: "100%", pr: 1 }}>
                     <Box>
                       <Typography gutterBottom variant="body2" sx={{ color: 'black', fontWeight: 600 }}>
-                        Doona's Magic Crayons
+                        {elem.titel}
                       </Typography>
                       <Typography variant="body2" sx={{ color: 'black', fontWeight: 500 }}>
-                        $ 80.00
+                        $ {elem.price} x {elem.quantity}
                       </Typography>
                     </Box>
                   </CardContent>
                 </Card>
-                <Card sx={{ width: "100%", boxShadow: 0, display: 'flex', gap: 4, alignItems: 'center', borderRadius: 14, padding: "2px", mb: 1 }}>
-                  <CardMedia
-                    sx={{ height: 60, width: 80, borderRadius: 14, objectFit: 'cover' }}
-                    image="https://cdn.pixabay.com/photo/2021/04/14/07/03/newborn-6177485_1280.jpg"
-                    title="green iguana"
-                  />
-                  <CardContent sx={{ padding: 0, mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: "100%", pr: 1 }}>
-                    <Box>
-                      <Typography gutterBottom variant="body2" sx={{ color: 'black', fontWeight: 600 }}>
-                        Doona's Magic Crayons
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: 'black', fontWeight: 500 }}>
-                        $ 80.00
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
+                )})}
                 <Box sx={{ width: "100%", position: 'absolute', bottom: 10, left: 0, padding: "0 20px" }}>
                   <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', padding: "10px 0", borderTop: "1px solid #f0f0f0" }}>
                     <Typography sx={{ color: "#777777", fontSize: "13px" }}>Subtotal</Typography>
-                    <Typography sx={{ fontSize: "13px", fontWeight: 600 }}>$ 80.00</Typography>
+                    <Typography sx={{ fontSize: "13px", fontWeight: 600 }}>$ {total}.00</Typography>
                   </Box>
                   <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', padding: "10px 0", borderBottom: "1px solid #f0f0f0" }}>
                     <Typography sx={{ color: "#777777", fontSize: "13px" }}>Shipping</Typography>
@@ -176,7 +164,7 @@ const Checkout = () => {
                   </Box>
                   <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', padding: "10px 0" }}>
                     <Typography sx={{ color: "#777777", fontSize: "13px" }}>Total(USD)</Typography>
-                    <Typography sx={{ fontSize: "13px", fontWeight: 600 }}>$ 140.00</Typography>
+                    <Typography sx={{ fontSize: "13px", fontWeight: 600 }}>$ {total + 100}.00</Typography>
                   </Box>
                   <Button variant='contained' sx={{ backgroundColor: 'black', borderRadius: 1, fontSize: "9px", padding: "16px 0", width: "100%", mt: 2 }}>Confirm order</Button>
                 </Box>

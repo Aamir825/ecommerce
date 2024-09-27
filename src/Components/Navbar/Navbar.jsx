@@ -54,7 +54,7 @@ const Navbar = () => {
             <Box sx={{ display: 'flex', gap: 2 }}>
               <NavLink style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', textTransform: 'uppercase' }}>Account</Typography></NavLink>
               <NavLink style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', textTransform: 'uppercase' }}>Login</Typography></NavLink>
-              <NavLink to="cart" style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', textTransform: 'uppercase' }}>Cart</Typography></NavLink>
+              <NavLink to="cart" style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', textTransform: 'uppercase' }}>Cart(0)</Typography></NavLink>
             </Box>
           </StyledToolbar>
         </Container>
