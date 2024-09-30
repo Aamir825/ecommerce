@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AppBar, Box, Button, Container, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled, Toolbar, Typography } from '@mui/material'
 import { Link, NavLink } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu';
 import MailIcon from '@mui/icons-material/Mail';
 import StoreIcon from '@mui/icons-material/Store';
+import { useSelector } from "react-redux"
 const Navbar = () => {
 
   const StyledToolbar = styled(Toolbar)({
@@ -11,13 +12,10 @@ const Navbar = () => {
     justifyContent: 'space-between',
     alignItems: 'center'
   })
-
   const [open, setOpen] = React.useState(false);
-
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
-
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
@@ -34,6 +32,15 @@ const Navbar = () => {
       </List>
     </Box>
   );
+
+  const cartItems = useSelector(state => state.cart.cartItem);
+  const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const user = JSON.parse(localStorage.getItem("client"));
+  console.log(user)
+  const Logout = () => {
+    localStorage.removeItem("client");
+    window.location.href = '/';
+  }
 
   return (
     <>
@@ -52,9 +59,14 @@ const Navbar = () => {
               <img src='/images/logo.PNG' />
             </Box>
             <Box sx={{ display: 'flex', gap: 2 }}>
-              <NavLink style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', textTransform: 'uppercase' }}>Account</Typography></NavLink>
-              <NavLink style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', textTransform: 'uppercase' }}>Login</Typography></NavLink>
-              <NavLink to="cart" style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', textTransform: 'uppercase' }}>Cart(0)</Typography></NavLink>
+              <NavLink style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', textTransform: 'uppercase' }}>{ user ? user.user.email : " Account"}</Typography></NavLink>
+              {user ? (
+                <Link onClick={Logout} style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', textTransform: 'uppercase' }}>Logout</Typography></Link>
+
+              ) : (
+                <NavLink to="/login" style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', textTransform: 'uppercase' }}>Login</Typography></NavLink>
+              )}
+              <NavLink to="cart" style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', textTransform: 'uppercase' }}>Cart({totalQuantity})</Typography></NavLink>
             </Box>
           </StyledToolbar>
         </Container>

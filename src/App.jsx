@@ -6,6 +6,8 @@ import Shop from '../src/Pages/Shop/Shop'
 import { ProductDetails } from './Components/ProductDetails/ProductDetails'
 import Cart from './Pages/Cart/Cart'
 import Checkout from './Pages/Checkout/Checkout'
+import { Login } from './Pages/Login/Login'
+import Register from './Pages/Register/Register'
 
 
 function App() {
@@ -30,6 +32,14 @@ function App() {
         {
           path: "checkout",
           element: <Checkout/>
+        },
+        {
+          path: "login",
+          element: <Login/>
+        },
+        {
+          path: "register",
+          element: <Register/>
         }
       ]
       

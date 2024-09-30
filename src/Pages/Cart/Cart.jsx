@@ -3,13 +3,16 @@ import { Box, Button, Card, CardContent, CardMedia, Container, Typography } from
 import WestIcon from '@mui/icons-material/West';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Link } from 'react-router-dom'
+import useDispatchProduct from '../../Hooks/useDispatchProducts';
+import { useSelector } from 'react-redux';
 
 const Cart = () => {
 
   // const counter = useSelector((state) => state.counter);
   // const dispatch = useDispatch();
-  const total = JSON.parse(localStorage.getItem("totalAmount")) || 0;
-  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+  const {removeFromCart} = useDispatchProduct();
+  const cartItems = useSelector(state => state.cart.cartItem);
+  const total = useSelector(state => state.cart.totalAmount);
   return (
     <>
       <Box component="div" sx={{ padding: "0 25px", mt: 10 }}>
@@ -25,7 +28,7 @@ const Cart = () => {
                 />
                 <CardContent sx={{ padding: 0, mt: 2, display: 'flex', flexDirection: { sm: 'row', xs: 'column' }, justifyContent: 'space-between', alignItems: 'center', width: "100%", height: { sm: "auto", xs: 300 }, pr: { sm: 6, xs: 0 } }}>
                   <Typography gutterBottom variant="body2" sx={{ color: 'black', fontWeight: 500, }}>
-                    {elem.titel}
+                    {elem.title}
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'black', fontWeight: 500 }}>
                     $ {elem.price}
@@ -38,7 +41,7 @@ const Cart = () => {
                   <Typography variant="body2" sx={{ color: 'black', fontWeight: 600 }}>
                     $ {elem.total}
                   </Typography>
-                  <DeleteForeverIcon sx={{fontSize: "30px", color: '#be0000', cursor: 'pointer'}}/>
+                  <DeleteForeverIcon onClick={()=> removeFromCart(elem.id)} sx={{fontSize: "30px", color: '#be0000', cursor: 'pointer'}}/>
                 </CardContent>
               </Card>
             )

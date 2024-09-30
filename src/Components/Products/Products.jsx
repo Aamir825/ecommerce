@@ -1,24 +1,52 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from '../ProductCard/ProductCard'
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid, Skeleton, Stack, Typography } from '@mui/material'
 import useGetProduct from '../../Hooks/useGetProducts'
 
 const Products = () => {
 
     const product = useGetProduct()
-    console.log("hoooook", product);
+    const [loading, setLodaing] = useState(true);
+    setTimeout(() => {
+        setLodaing(false);
+    }, 2000)
 
     return (
         <>
             <Box sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
-                    {product.map((elem, index) => {
-                        return (
-                            <Grid key={index} item md={3} sm={6} xs={12}>
-                                <ProductCard image={elem.imageUrl} title={elem.title} price={elem.price} id={elem.id}/>
+                    {loading ? (
+                        <Grid container spacing={2}>
+                            <Grid item>
+                                <Skeleton variant="text" width={300} height={300} />
+                                <Skeleton variant="text" width={300} height={30} />
+                                <Skeleton variant="text" width={300} height={30} />
+                                <Skeleton variant="text" width={300} height={30} />
                             </Grid>
-                        )
-                    })}
+                            <Grid item>
+                                <Skeleton variant="text" width={300} height={300} />
+                                <Skeleton variant="text" width={300} height={30} />
+                                <Skeleton variant="text" width={300} height={30} />
+                                <Skeleton variant="text" width={300} height={30} />
+                            </Grid>
+                            <Grid item>
+                                <Skeleton variant="text" width={300} height={300} />
+                                <Skeleton variant="text" width={300} height={30} />
+                                <Skeleton variant="text" width={300} height={30} />
+                                <Skeleton variant="text" width={300} height={30} />
+                            </Grid>
+                        </Grid>
+                    ) : (
+                        <>
+                            {product.map((elem, index) => {
+                                return (
+                                    <Grid key={index} item md={3} sm={6} xs={12}>
+                                        <ProductCard image={elem.imageUrl} title={elem.title} price={elem.price} id={elem.id} />
+                                    </Grid>
+                                )
+                            })}
+                        </>
+                    )}
                 </Grid>
             </Box>
         </>
