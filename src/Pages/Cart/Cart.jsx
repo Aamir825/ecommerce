@@ -1,18 +1,30 @@
 import React from 'react'
 import { Box, Button, Card, CardContent, CardMedia, Container, Typography } from "@mui/material"
 import WestIcon from '@mui/icons-material/West';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useDispatchProduct from '../../Hooks/useDispatchProducts';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { decrementQuantity, incrementQuantity } from '../../Features/Cart';
 
 const Cart = () => {
 
   // const counter = useSelector((state) => state.counter);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const {removeFromCart} = useDispatchProduct();
   const cartItems = useSelector(state => state.cart.cartItem);
   const total = useSelector(state => state.cart.totalAmount);
+  const user = JSON.parse(localStorage.getItem("client"));
+  const navigate = useNavigate();
+  const isLogin = () =>{
+    if(user){
+      navigate("/checkout");
+    }else{
+      navigate("/login")
+    }
+  }
   return (
     <>
       <Box component="div" sx={{ padding: "0 25px", mt: 10 }}>
@@ -27,16 +39,16 @@ const Cart = () => {
                   title="green iguana"
                 />
                 <CardContent sx={{ padding: 0, mt: 2, display: 'flex', flexDirection: { sm: 'row', xs: 'column' }, justifyContent: 'space-between', alignItems: 'center', width: "100%", height: { sm: "auto", xs: 300 }, pr: { sm: 6, xs: 0 } }}>
-                  <Typography gutterBottom variant="body2" sx={{ color: 'black', fontWeight: 500, }}>
+                  <Typography gutterBottom variant="body2" sx={{ color: 'black', fontWeight: 500, width: 20, fontSize: "12px" }}>
                     {elem.title}
                   </Typography>
                   <Typography variant="body2" sx={{ color: 'black', fontWeight: 500 }}>
                     $ {elem.price}
                   </Typography>
                   <Box component="div" sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    {/* <RemoveIcon onClick={() => dispatch(decrement())} sx={{ backgroundColor: "black", color: "white", borderRadius: 6, cursor: 'pointer', width: 35, height: 35, padding: "8px" }} /> */}
-                    <Typography>x{elem.quantity}</Typography>
-                    {/* <AddIcon onClick={() => dispatch(increment())} sx={{ border: "1px solid #cecece", color: "black", borderRadius: 6, cursor: 'pointer', width: 35, height: 35, padding: "8px" }} /> */}
+                    <RemoveIcon onClick={() => dispatch(decrementQuantity({id: elem.id}))} sx={{ backgroundColor: "black", color: "white", borderRadius: 6, cursor: 'pointer', width: 35, height: 35, padding: "8px" }} />
+                    <Typography>{elem.quantity}</Typography>
+                    <AddIcon onClick={() => dispatch(incrementQuantity({id: elem.id}))} sx={{ border: "1px solid #cecece", color: "black", borderRadius: 6, cursor: 'pointer', width: 35, height: 35, padding: "8px" }} />
                   </Box>
                   <Typography variant="body2" sx={{ color: 'black', fontWeight: 600 }}>
                     $ {elem.total}
@@ -54,7 +66,7 @@ const Cart = () => {
           </Box>
           <Box component="div" sx={{ mt: 3, display: 'flex', flexDirection: { sm: 'row', xs: 'column' }, gap: { sm: 0, xs: 2 }, justifyContent: 'space-between' }}>
             <Link to="/"><Button variant='outlined' startIcon={<WestIcon />} sx={{ border: "1px solid #cecece", color: "black", borderRadius: 6, fontSize: "8px", padding: "12px 35px" }}>continue</Button></Link>
-            <Link to="/checkout"><Button variant='contained' sx={{ backgroundColor: 'black', borderRadius: 6, fontSize: "8px", padding: { sm: "12px 134px", xs: "12px 35px" } }}>Checkout</Button></Link>
+            <Link onClick={isLogin}><Button variant='contained' sx={{ backgroundColor: 'black', borderRadius: 6, fontSize: "8px", padding: { sm: "12px 134px", xs: "12px 35px" } }}>Checkout</Button></Link>
           </Box>
         </Container>
       </Box>

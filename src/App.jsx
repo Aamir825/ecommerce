@@ -8,6 +8,7 @@ import Cart from './Pages/Cart/Cart'
 import Checkout from './Pages/Checkout/Checkout'
 import { Login } from './Pages/Login/Login'
 import Register from './Pages/Register/Register'
+import ProtectedRout from './Components/ProtectedRoute/ProtectedRoute'
 
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
         },
         {
           path: "checkout",
-          element: <Checkout/>
+          element: <ProtectedRout><Checkout/></ProtectedRout>
         },
         {
           path: "login",

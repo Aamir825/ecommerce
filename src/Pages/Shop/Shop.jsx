@@ -8,7 +8,7 @@ const Shop = () => {
 
   return (
     <>
-      <Box sx={{padding: "0 25px"}}>
+      <Box>
         <Container>
         <Header/>
         <Filters/>

@@ -1,28 +1,14 @@
-import React from 'react'
-import { Box, Button, Card, CardContent, CardMedia, Container, Tooltip, Typography } from '@mui/material'
+import React, { useState } from 'react'
+import { Alert, Box, Button, Card, CardContent, CardMedia, Container, Typography } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { useDispatch, useSelector } from 'react-redux';
-import { decrement, increment } from '../../Features/Counter';
 import useProductDetail from '../../Hooks/useProductDetails';
 import useDispatchProduct from '../../Hooks/useDispatchProducts';
-import { useNavigate } from 'react-router-dom';
 
 export const ProductDetails = () => {
 
-  const counter = useSelector((state) => state.counter);
-  const dispatch = useDispatch();
   const {product} = useProductDetail();
-  const {addToCart} = useDispatchProduct();
-  const user = JSON.parse(localStorage.getItem("client"));
-  const navigate = useNavigate();
-  const isLogin = () =>{
-    if(user){
-      navigate("/cart");
-    }else{
-      navigate("/login")
-    }
-  }
+  const {addToCart, handleIncrement, handleDecrement, quantity, success} = useDispatchProduct();
   
   const imageStyles = { height: 420, width: { md: 600, sm: 300, xs: "100%" }, objectFit: 'cover', borderRadius: 3 };
   return (
@@ -48,13 +34,16 @@ export const ProductDetails = () => {
                   {product.description}
                 </Typography>
                 <Box component="div" sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 5 }}>
-                  <RemoveIcon onClick={() => dispatch(decrement())} sx={{ backgroundColor: "black", color: "white", borderRadius: 6, cursor: 'pointer', width: 35, height: 35, padding: "8px" }} />
-                  <Typography>{counter}</Typography>
-                  <AddIcon onClick={() => dispatch(increment())} sx={{ border: "1px solid #cecece", color: "black", borderRadius: 6, cursor: 'pointer', width: 35, height: 35, padding: "8px" }} />
-                  <Button onClick={()=> {addToCart(); isLogin();}} variant='contained' sx={{ backgroundColor: 'black', borderRadius: 6, fontSize: "8px", padding: "12px 35px" }}>Add to Cart</Button>
+                  <RemoveIcon onClick={handleDecrement} sx={{ backgroundColor: "black", color: "white", borderRadius: 6, cursor: 'pointer', width: 35, height: 35, padding: "8px" }} />
+                  <Typography>{quantity}</Typography>
+                  <AddIcon onClick={handleIncrement} sx={{ border: "1px solid #cecece", color: "black", borderRadius: 6, cursor: 'pointer', width: 35, height: 35, padding: "8px" }} />
+                  <Button onClick={addToCart} variant='contained' sx={{ backgroundColor: 'black', borderRadius: 6, fontSize: "8px", padding: "12px 35px" }}>Add to Cart</Button>
                 </Box>
                 <Typography sx={{ borderTop: "1px solid #cecece", borderBottom: "1px solid #cecece", mt: 5, padding: "12px 0", textTransform: 'uppercase', fontSize: "10px", fontWeight: 600 }}>Safety</Typography>
                 <Typography sx={{ borderBottom: "1px solid #cecece", padding: "12px 0", textTransform: 'uppercase', fontSize: "10px", fontWeight: 600 }}>Specification</Typography>
+                {success && <Alert variant="outlined" severity="success" sx={{ backgroundColor: 'rgba(76, 175, 80, 0.1)', color: '#4CAF50' }}>
+                        Item added to cart successfully!
+                    </Alert>}
               </CardContent>
             </Card>
           </Container>

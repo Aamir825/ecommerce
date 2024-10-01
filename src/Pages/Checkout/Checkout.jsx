@@ -135,7 +135,7 @@ const Checkout = () => {
               <Box sx={{ height: 700, bgcolor: 'white', borderRadius: 3, padding: "8px 20px", position: 'relative' }}>
                 {cartItems.map((elem,index)=>{ 
                   return(
-                <Card sx={{ width: "100%", boxShadow: 0, display: 'flex', gap: 4, alignItems: 'center', borderRadius: 14, padding: "2px", mb: 1 }}>
+                <Card key={index} sx={{ width: "100%", boxShadow: 0, display: 'flex', gap: 4, alignItems: 'center', borderRadius: 14, padding: "2px", mb: 1 }}>
                   <CardMedia
                     sx={{ height: 60, width: 80, borderRadius: 14, objectFit: 'cover' }}
                     image={elem.imageUrl}
