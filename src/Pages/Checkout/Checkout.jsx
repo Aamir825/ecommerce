@@ -1,11 +1,36 @@
 import React from 'react'
 import { Box, Button, Card, CardContent, CardMedia, Container, Grid, InputLabel, TextField, Typography } from "@mui/material"
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import {loadStripe} from '@stripe/stripe-js';
+import {CardElement,} from "@stripe/react-stripe-js"
 
 const Checkout = () => {
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
   const total = JSON.parse(localStorage.getItem("totalAmount")) || 0;
+
+  const makePayment = async() =>{
+    const stripe = await loadStripe('pk_test_51Q5TZQFHwQXqOYDjJbKamWUsyy8ahDklYRT60blp2R040VsZWBuPXzzOmlVcYffRKKJuUr68AxkMJLLpRrOmNGfi00xmbrM2Vp');
+    const body = {
+      products: cartItems,
+    }
+    const header = {
+      "Content-Type": "application/json"
+    }
+    const response = await fetch(`http://localhost:7000/api/create-checkout-session`,{
+      method: "POST",
+      headers: header,
+      body: JSON.stringify(body)
+    })
+
+    const session = await response.json();
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id
+    });
+
+    if(result.error){
+      console.log(result.error)
+    }
+  }
+
   return (
     <>
       <Box component="div" sx={{ mt: 6 }}>
@@ -166,7 +191,7 @@ const Checkout = () => {
                     <Typography sx={{ color: "#777777", fontSize: "13px" }}>Total(USD)</Typography>
                     <Typography sx={{ fontSize: "13px", fontWeight: 600 }}>$ {total + 100}.00</Typography>
                   </Box>
-                  <Button variant='contained' sx={{ backgroundColor: 'black', borderRadius: 1, fontSize: "9px", padding: "16px 0", width: "100%", mt: 2 }}>Confirm order</Button>
+                  <Button onClick={makePayment} variant='contained' sx={{ backgroundColor: 'black', borderRadius: 1, fontSize: "9px", padding: "16px 0", width: "100%", mt: 2 }}>Confirm order</Button>
                 </Box>
               </Box>
             </Grid>

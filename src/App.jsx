@@ -9,6 +9,7 @@ import Checkout from './Pages/Checkout/Checkout'
 import { Login } from './Pages/Login/Login'
 import Register from './Pages/Register/Register'
 import ProtectedRout from './Components/ProtectedRoute/ProtectedRoute'
+import Success from './Components/Success/Success'
 
 
 function App() {
@@ -41,6 +42,10 @@ function App() {
         {
           path: "register",
           element: <Register/>
+        },
+        {
+          path: "success",
+          element: <Success/>
         }
       ]
       
