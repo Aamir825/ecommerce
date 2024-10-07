@@ -10,6 +10,7 @@ import { Login } from './Pages/Login/Login'
 import Register from './Pages/Register/Register'
 import ProtectedRout from './Components/ProtectedRoute/ProtectedRoute'
 import Success from './Components/Success/Success'
+import Orders from './Pages/Orders/Orders'
 
 
 function App() {
@@ -45,7 +46,11 @@ function App() {
         },
         {
           path: "success",
-          element: <Success/>
+          element: <ProtectedRout><Success/></ProtectedRout>
+        },
+        {
+          path: "orders",
+          element: <ProtectedRout><Orders/></ProtectedRout>
         }
       ]
       

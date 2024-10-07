@@ -7,9 +7,11 @@ const Products = () => {
 
     const product = useGetProduct()
     const [loading, setLodaing] = useState(true);
-    setTimeout(() => {
-        setLodaing(false);
-    }, 2000)
+    useEffect(()=>{
+        if(product.length > 0){
+            setLodaing(false);
+        }
+    },[product])
 
     return (
         <>

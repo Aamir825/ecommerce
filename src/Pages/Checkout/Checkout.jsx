@@ -1,35 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Button, Card, CardContent, CardMedia, Container, Grid, InputLabel, TextField, Typography } from "@mui/material"
-import {loadStripe} from '@stripe/stripe-js';
-import {CardElement,} from "@stripe/react-stripe-js"
+import useCheckouts from '../../Hooks/useCheckout';
 
 const Checkout = () => {
-  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-  const total = JSON.parse(localStorage.getItem("totalAmount")) || 0;
-
-  const makePayment = async() =>{
-    const stripe = await loadStripe('pk_test_51Q5TZQFHwQXqOYDjJbKamWUsyy8ahDklYRT60blp2R040VsZWBuPXzzOmlVcYffRKKJuUr68AxkMJLLpRrOmNGfi00xmbrM2Vp');
-    const body = {
-      products: cartItems,
-    }
-    const header = {
-      "Content-Type": "application/json"
-    }
-    const response = await fetch(`http://localhost:7000/api/create-checkout-session`,{
-      method: "POST",
-      headers: header,
-      body: JSON.stringify(body)
-    })
-
-    const session = await response.json();
-    const result = stripe.redirectToCheckout({
-      sessionId: session.id
-    });
-
-    if(result.error){
-      console.log(result.error)
-    }
-  }
+  const {total, deliveryData, cartItems, handleInputChange, makePayment} = useCheckouts();
 
   return (
     <>
@@ -46,7 +20,7 @@ const Checkout = () => {
                       sx: {
                         height: 16,
                       }
-                    }} label="Name" type='text' variant="outlined" sx={{ width: "100%", fontSize: "8px" }} InputProps={{
+                    }} label="Name" name='name' value={deliveryData.name} onChange={handleInputChange} required type='text' variant="outlined" sx={{ width: "100%", fontSize: "8px" }} InputProps={{
                       sx: {
                         '& .MuiOutlinedInput-notchedOutline': {
                           borderColor: '#eeeeee', // Change the border color
@@ -60,7 +34,7 @@ const Checkout = () => {
                       sx: {
                         height: 16,
                       }
-                    }} label="Mobile Number" type='number' variant="outlined" sx={{ width: "100%" }} InputProps={{
+                    }} label="Mobile Number" name='number' value={deliveryData.number} onChange={handleInputChange} required type='number' variant="outlined" sx={{ width: "100%" }} InputProps={{
                       sx: {
                         '& .MuiOutlinedInput-notchedOutline': {
                           borderColor: '#eeeeee', // Change the border color
@@ -74,7 +48,7 @@ const Checkout = () => {
                       sx: {
                         height: 16,
                       }
-                    }} label="Mobile Number" type='Email' variant="outlined" sx={{ width: "100%" }} InputProps={{
+                    }} label="email" name='email' value={deliveryData.email} onChange={handleInputChange} required type='Email' variant="outlined" sx={{ width: "100%" }} InputProps={{
                       sx: {
                         '& .MuiOutlinedInput-notchedOutline': {
                           borderColor: '#eeeeee', // Change the border color
@@ -88,7 +62,7 @@ const Checkout = () => {
                       sx: {
                         height: 16,
                       }
-                    }} label="Howthone" type='Text' variant="outlined" sx={{ width: "100%" }} InputProps={{
+                    }} label="Howthone" name='city' value={deliveryData.city} onChange={handleInputChange} required type='Text' variant="outlined" sx={{ width: "100%" }} InputProps={{
                       sx: {
                         '& .MuiOutlinedInput-notchedOutline': {
                           borderColor: '#eeeeee', // Change the border color
@@ -102,7 +76,7 @@ const Checkout = () => {
                       sx: {
                         height: 16,
                       }
-                    }} label="California" type='Text' variant="outlined" sx={{ width: "100%" }} InputProps={{
+                    }} label="California" name='state' value={deliveryData.state} onChange={handleInputChange} required type='Text' variant="outlined" sx={{ width: "100%" }} InputProps={{
                       sx: {
                         '& .MuiOutlinedInput-notchedOutline': {
                           borderColor: '#eeeeee', // Change the border color
@@ -116,7 +90,7 @@ const Checkout = () => {
                       sx: {
                         height: 16,
                       }
-                    }} label="90250" type='Text' variant="outlined" sx={{ width: "100%" }} InputProps={{
+                    }} label="90250" name='zip' value={deliveryData.zip} onChange={handleInputChange} required type='Text' variant="outlined" sx={{ width: "100%" }} InputProps={{
                       sx: {
                         '& .MuiOutlinedInput-notchedOutline': {
                           borderColor: '#eeeeee', // Change the border color
@@ -130,7 +104,7 @@ const Checkout = () => {
                       sx: {
                         height: 16,
                       }
-                    }} label="CA" type='Text' variant="outlined" sx={{ width: "100%" }} InputProps={{
+                    }} label="CA" name='state2' value={deliveryData.state2} onChange={handleInputChange} required type='Text' variant="outlined" sx={{ width: "100%" }} InputProps={{
                       sx: {
                         '& .MuiOutlinedInput-notchedOutline': {
                           borderColor: '#eeeeee', // Change the border color
@@ -144,7 +118,7 @@ const Checkout = () => {
                       sx: {
                         height: 16,
                       }
-                    }} label="4976 libby street" type='Text' variant="outlined" sx={{ width: "100%" }} InputProps={{
+                    }} label="4976 libby street" name='address' value={deliveryData.address} onChange={handleInputChange} required type='Text' variant="outlined" sx={{ width: "100%" }} InputProps={{
                       sx: {
                         '& .MuiOutlinedInput-notchedOutline': {
                           borderColor: '#eeeeee', // Change the border color
