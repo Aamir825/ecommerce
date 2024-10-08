@@ -15,10 +15,10 @@ const Filters = () => {
             <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', mt: 8, overflowX:{sm: 'auto',xs: "scroll"} }}>
                 <Box component='div' sx={{ display: 'flex', gap: 2 }}>
                     <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>All</Button>
-                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Aparel</Button>
-                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Furniture</Button>
-                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Tools</Button>
-                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Shirts</Button>
+                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Women</Button>
+                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Mens</Button>
+                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Kids</Button>
+                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Boys</Button>
                 </Box>
                 <Box component='div' position={'relative'}>
                     <Button onClick={handleClick} sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }} variant="outlined" startIcon={<SortIcon />}>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Alert, Box, Button, Card, CardContent, CardMedia, Container, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Alert, Box, Button, Card, CardContent, CardMedia, Container, Skeleton, Typography } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import useProductDetail from '../../Hooks/useProductDetails';
@@ -7,15 +7,48 @@ import useDispatchProduct from '../../Hooks/useDispatchProducts';
 
 export const ProductDetails = () => {
 
-  const {product} = useProductDetail();
-  const {addToCart, handleIncrement, handleDecrement, quantity, success} = useDispatchProduct();
-  
+  const {product}  = useProductDetail();
+  console.log(product)
+  const { addToCart, handleIncrement, handleDecrement, quantity, success } = useDispatchProduct();
   const imageStyles = { height: 420, width: { md: 600, sm: 300, xs: "100%" }, objectFit: 'cover', borderRadius: 3 };
+  const [loading, setLoading] = useState(true);
+  useEffect(()=>{
+    if(product){
+      setLoading(false)
+    }
+  },[product])
   return (
     <>
       <Box sx={{ mt: 10 }}>
-        {product ? (
-          <Container>
+
+        <Container>
+          {loading ? (
+          <Box sx={{ display: 'flex', flexDirection: { sm: 'row', xs: 'column' }, gap: 5, boxShadow: 0, backgroundColor: 'transparent' }}>
+            <Box>
+              <Skeleton variant="text" sx={{ width: { md: 600, sm: 300, xs: "100%" }, height: 40, }} />
+              <Skeleton variant="text" sx={{ width: { md: 600, sm: 300, xs: "100%" }, height: 40, }} />
+              <Skeleton variant="text" sx={{ width: { md: 600, sm: 300, xs: "100%" }, height: 40, }} />
+              <Skeleton variant="text" sx={{ width: { md: 600, sm: 300, xs: "100%" }, height: 40, }} />
+              <Skeleton variant="text" sx={{ width: { md: 600, sm: 300, xs: "100%" }, height: 40, }} />
+              <Skeleton variant="text" sx={{ width: { md: 600, sm: 300, xs: "100%" }, height: 40, }} />
+              <Skeleton variant="text" sx={{ width: { md: 600, sm: 300, xs: "100%" }, height: 40, }} />
+              <Skeleton variant="text" sx={{ width: { md: 600, sm: 300, xs: "100%" }, height: 40, }} />
+            </Box>
+            <Box>
+              <Skeleton variant="text" width={300} height={30} />
+              <Skeleton variant="text" width={100} height={30} />
+              <Skeleton variant="text" width={200} height={30} />
+              <Box component="div" sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 5 }}>
+                <Skeleton variant="text" width={100} height={30} />
+                <Skeleton variant="text" width={100} height={30} />
+              </Box>
+              <Skeleton variant="text" width={300} height={30} sx={{ margin: 0, padding: 0 }} />
+            </Box>
+          </Box>
+          ):
+          ( 
+            <>
+            {product ? (
             <Card sx={{ display: 'flex', flexDirection: { sm: 'row', xs: 'column' }, gap: 5, boxShadow: 0, backgroundColor: 'transparent' }}>
               <CardMedia
                 component={"img"}
@@ -46,8 +79,12 @@ export const ProductDetails = () => {
                     </Alert>}
               </CardContent>
             </Card>
-          </Container>
-        ) : ("")}
+            
+          
+        ) : ("")} 
+        </>
+        )}
+        </Container>
       </Box>
     </>
   )

@@ -18,7 +18,7 @@ const Products = () => {
             <Box sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                     {loading ? (
-                        <Grid container spacing={2}>
+                        <Grid container spacing={1}>
                             <Grid item>
                                 <Skeleton variant="text" width={300} height={300} />
                                 <Skeleton variant="text" width={300} height={30} />

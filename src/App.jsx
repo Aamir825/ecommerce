@@ -11,6 +11,7 @@ import Register from './Pages/Register/Register'
 import ProtectedRout from './Components/ProtectedRoute/ProtectedRoute'
 import Success from './Components/Success/Success'
 import Orders from './Pages/Orders/Orders'
+import { ErrorPage } from './Pages/ErrorPage/ErrorPage'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
     {
       path: "/",
       element: <Layout/>,
+      errorElement: <ErrorPage/>,
       children: [
         {
           path: "",
