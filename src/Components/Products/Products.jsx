@@ -3,9 +3,9 @@ import ProductCard from '../ProductCard/ProductCard'
 import { Box, Grid, Skeleton, Stack, Typography } from '@mui/material'
 import useGetProduct from '../../Hooks/useGetProducts'
 
-const Products = () => {
+const Products = ({category}) => {
 
-    const product = useGetProduct()
+    const product = useGetProduct(category)
     const [loading, setLodaing] = useState(true);
     useEffect(()=>{
         if(product.length > 0){

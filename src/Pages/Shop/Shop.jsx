@@ -5,14 +5,14 @@ import Filters from '../../Components/Filters/Filters'
 import Products from '../../Components/Products/Products'
 
 const Shop = () => {
-
+  const [category, setCategory] = useState('');
   return (
     <>
       <Box>
         <Container>
         <Header/>
-        <Filters/>
-        <Products/>
+        <Filters setCategory={setCategory}/>
+        <Products category={category}/>
         </Container>
       </Box>
     </>

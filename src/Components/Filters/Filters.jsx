@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Box, Button, Menu, MenuItem, Tab, Tabs, Typography } from '@mui/material'
+import { Box, Button, Menu, MenuItem } from '@mui/material'
 import SortIcon from '@mui/icons-material/Sort';
 
-const Filters = () => {
+const Filters = ({setCategory}) => {
 
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -14,11 +14,11 @@ const Filters = () => {
         <>
             <Box component="div" sx={{ display: 'flex', justifyContent: 'space-between', mt: 8, overflowX:{sm: 'auto',xs: "scroll"} }}>
                 <Box component='div' sx={{ display: 'flex', gap: 2 }}>
-                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>All</Button>
-                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Women</Button>
-                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Mens</Button>
-                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Kids</Button>
-                    <Button variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Boys</Button>
+                    <Button onClick={()=> setCategory("")} variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>All</Button>
+                    <Button onClick={()=> setCategory("women")} variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Women</Button>
+                    <Button onClick={()=> setCategory("men")} variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Mens</Button>
+                    <Button onClick={()=> setCategory("kids")} variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Kids</Button>
+                    <Button onClick={()=> setCategory("boys")} variant="outlined" sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }}>Boys</Button>
                 </Box>
                 <Box component='div' position={'relative'}>
                     <Button onClick={handleClick} sx={{ border: '1px solid #d6d6d6', padding: "4px 16px", borderRadius: 6, fontSize: "12px", color: 'black' }} variant="outlined" startIcon={<SortIcon />}>

@@ -27,7 +27,7 @@ const Orders = () => {
                     {products.map((item)=>(
                     <Box display={'flex'} justifyContent={'space-between'} pt={1} pb={1}>
                         <Box display={'flex'} gap={2}>
-                            <img style={{width: 80, height: 70, objectFit: 'cover', borderRadius: 5}} src={item.imageUrl}/>
+                            <img alt='product' style={{width: 80, height: 70, objectFit: 'cover', borderRadius: 5}} src={item.imageUrl}/>
                             <Box>
                                 <Typography >{item.title}</Typography>
                                 <Typography variant='body1' color='#8a8a8a'>${item.price}</Typography>
