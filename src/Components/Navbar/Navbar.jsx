@@ -57,7 +57,7 @@ const Navbar = () => {
               <NavLink style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', textTransform: 'uppercase' }}>Information</Typography></NavLink>
             </Box>
             <Box>
-              <img src='/images/logo.PNG' />
+              <img alt="logo" src='/images/logo.PNG' />
             </Box>
             <Box sx={{ display: 'flex', gap: 2 }}>
               <NavLink style={{ textDecoration: "none", color: 'black' }}><Typography sx={{ fontSize: '12px', }}>{ user ? user.user.email : " ACCOUNT"}</Typography></NavLink>
