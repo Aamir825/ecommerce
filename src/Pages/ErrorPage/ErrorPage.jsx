@@ -12,7 +12,7 @@ export const ErrorPage = () => {
     <>
       <Box sx={{width: "100%", height: "100vh", display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
         <img src='/images/404.png'/>
-        <Button sx={{backgroundColor: "black", color: "#E8CA67", padding: "4px 20px", marginTop: 2}} onClick={handleSubmit}>Go Back</Button>
+        <Button sx={{backgroundColor: "black", color: "#E8CA67", padding: "4px 20px", marginTop: 2}} onClick={handleSubmit}>Go Back </Button>
       </Box>
     </>
   )
